@@ -1,7 +1,7 @@
 {
-  "name": "markdown-editor",
+  "name": "@wedevign/markdown-editor",
   "description": "A rich text editor with Markdown shortcuts",
-  "version": "11.21.3",
+  "version": "12.0.0",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "license": "BSD-3-Clause",
@@ -12,7 +12,8 @@
     "build": "tsc",
     "preversion": "yarn build",
     "watch": "yarn tsc-watch",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "publish": "npm publish --access public"
   },
   "serve": {
     "open": true,
