@@ -8,7 +8,20 @@ type BlockMenuProps = Omit<
   Props,
   "renderMenuItem" | "items" | "onClearSearch"
 > &
-  Required<Pick<Props, "onLinkToolbarOpen" | "embeds">>;
+  Required<
+    Pick<
+      Props,
+      | "onLinkToolbarOpen"
+      | "onArticleLinkToolbarOpen"
+      | "onExerciseLinkToolbarOpen"
+      | "onExerciseSetLinkToolbarOpen"
+      | "onExerciseProgressionLinkToolbarOpen"
+      | "onMethodLinkToolbarOpen"
+      | "onMethodSetLinkToolbarOpen"
+      | "onMethodProgressionLinkToolbarOpen"
+      | "embeds"
+    >
+  >;
 
 class BlockMenu extends React.Component<BlockMenuProps> {
   get items() {
@@ -17,7 +30,7 @@ class BlockMenu extends React.Component<BlockMenuProps> {
 
   clearSearch = () => {
     const { state, dispatch } = this.props.view;
-    const parent = findParentNode(node => !!node)(state.selection);
+    const parent = findParentNode((node) => !!node)(state.selection);
 
     if (parent) {
       dispatch(state.tr.insertText("", parent.pos, state.selection.to));

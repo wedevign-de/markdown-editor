@@ -2,41 +2,41 @@ import * as React from "react";
 import { dark, light } from "../styles/theme";
 import Editor from "..";
 
-const docSearchResults = [
+const articleSearchResults = [
   {
     title: "Hiring",
-    subtitle: "Created by Jane",
-    url: "/doc/hiring",
+    subtitle: "Here is the first part of the short_description ...",
+    url: "/article/hiring",
   },
   {
     title: "Product Roadmap",
-    subtitle: "Created by Tom",
-    url: "/doc/product-roadmap",
+    subtitle: "Here is the first part of the short_description ...",
+    url: "/article/product-roadmap",
   },
   {
     title: "Finances",
-    subtitle: "Created by Coley",
-    url: "/doc/finances",
+    subtitle: "Here is the first part of the short_description ...",
+    url: "/article/finances",
   },
   {
     title: "Security",
-    subtitle: "Created by Coley",
-    url: "/doc/security",
+    subtitle: "Here is the first part of the short_description ...",
+    url: "/article/security",
   },
   {
     title: "Super secret stuff",
-    subtitle: "Created by Coley",
-    url: "/doc/secret-stuff",
+    subtitle: "Here is the first part of the short_description ...",
+    url: "/article/secret-stuff",
   },
   {
     title: "Supero notes",
-    subtitle: "Created by Vanessa",
-    url: "/doc/supero-notes",
+    subtitle: "Here is the first part of the short_description ...",
+    url: "/article/supero-notes",
   },
   {
     title: "Meeting notes",
-    subtitle: "Created by Rob",
-    url: "/doc/meeting-notes",
+    subtitle: "Here is the first part of the short_description ...",
+    url: "/article/meeting-notes",
   },
 ];
 
@@ -60,7 +60,7 @@ class YoutubeEmbed extends React.Component<{
 const embeds = [
   {
     title: "YouTube",
-    keywords: "youtube video tube google",
+    keywords: "yt youtube video tube google",
     defaultHidden: true,
     // eslint-disable-next-line react/display-name
     icon: () => (
@@ -70,7 +70,7 @@ const embeds = [
         height={24}
       />
     ),
-    matcher: url => {
+    matcher: (url) => {
       return url.match(
         /(?:https?:\/\/)?(?:www\.)?youtu\.?be(?:\.com)?\/?.*(?:watch|embed)?(?:.*v=|v\/|\/)([a-zA-Z0-9_-]{11})$/i
       );
@@ -89,13 +89,14 @@ export default function Example(props) {
   return (
     <div style={{ padding: "1em 2em" }}>
       <Editor
-        onCreateLink={title => {
+        onCreateArticleLink={(title) => {
           // Delay to simulate time taken for remote API request to complete
           return new Promise((resolve, reject) => {
+            console.log(title);
             setTimeout(() => {
               if (title !== "error") {
                 return resolve(
-                  `/doc/${encodeURIComponent(title.toLowerCase())}`
+                  `/article/${encodeURIComponent(title.toLowerCase())}`
                 );
               } else {
                 reject("500 error");
@@ -103,25 +104,23 @@ export default function Example(props) {
             }, 1500);
           });
         }}
-        onSearchLink={async term => {
-          console.log("Searched link: ", term);
-
+        onSearchArticleLink={async (term) => {
           // Delay to simulate time taken for remote API request to complete
-          return new Promise(resolve => {
+          return new Promise((resolve) => {
             setTimeout(() => {
               resolve(
-                docSearchResults.filter(result =>
+                articleSearchResults.filter((result) =>
                   result.title.toLowerCase().includes(term.toLowerCase())
                 )
               );
             }, Math.random() * 500);
           });
         }}
-        uploadImage={file => {
+        uploadImage={(file) => {
           console.log("File upload triggered: ", file);
 
           // Delay to simulate time taken to upload
-          return new Promise(resolve => {
+          return new Promise((resolve) => {
             setTimeout(() => resolve(URL.createObjectURL(file)), 1500);
           });
         }}

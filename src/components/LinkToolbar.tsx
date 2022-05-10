@@ -4,12 +4,14 @@ import LinkEditor, { SearchResult } from "./LinkEditor";
 import FloatingToolbar from "./FloatingToolbar";
 import createAndInsertLink from "../commands/createAndInsertLink";
 import baseDictionary from "../dictionary";
+import { ContentType } from "../types/content";
 
 type Props = {
   isActive: boolean;
   view: EditorView;
   tooltip: typeof React.Component | React.FC<any>;
   dictionary: typeof baseDictionary;
+  contentType?: ContentType;
   onCreateLink?: (title: string) => Promise<string>;
   onSearchLink?: (term: string) => Promise<SearchResult[]>;
   onClickLink: (href: string, event: MouseEvent) => void;
@@ -45,7 +47,7 @@ export default class LinkToolbar extends React.Component<Props> {
     window.removeEventListener("mousedown", this.handleClickOutside);
   }
 
-  handleClickOutside = ev => {
+  handleClickOutside = (ev) => {
     if (
       ev.target &&
       this.menuRef.current &&
@@ -127,7 +129,7 @@ export default class LinkToolbar extends React.Component<Props> {
   };
 
   render() {
-    const { onCreateLink, onClose, ...rest } = this.props;
+    const { contentType, onCreateLink, onClose, ...rest } = this.props;
     const { selection } = this.props.view.state;
     const active = isActive(this.props);
 
@@ -137,6 +139,7 @@ export default class LinkToolbar extends React.Component<Props> {
           <LinkEditor
             from={selection.from}
             to={selection.to}
+            contentType={contentType}
             onCreateLink={onCreateLink ? this.handleOnCreateLink : undefined}
             onSelectLink={this.handleOnSelectLink}
             onRemoveLink={onClose}

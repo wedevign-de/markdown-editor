@@ -2,7 +2,6 @@ import {
   BlockQuoteIcon,
   BulletedListIcon,
   CodeIcon,
-  Heading1Icon,
   Heading2Icon,
   Heading3Icon,
   HorizontalRuleIcon,
@@ -27,14 +26,14 @@ export default function blockMenuItems(
   dictionary: typeof baseDictionary
 ): MenuItem[] {
   return [
-    {
-      name: "heading",
-      title: dictionary.h1,
-      keywords: "h1 heading1 title",
-      icon: Heading1Icon,
-      shortcut: "^ ⇧ 1",
-      attrs: { level: 1 },
-    },
+    // {
+    //   name: "heading",
+    //   title: dictionary.h1,
+    //   keywords: "h1 heading1 title",
+    //   icon: Heading1Icon,
+    //   shortcut: "^ ⇧ 1",
+    //   attrs: { level: 1 },
+    // },
     {
       name: "heading",
       title: dictionary.h2,
@@ -55,22 +54,22 @@ export default function blockMenuItems(
       name: "separator",
     },
     {
-      name: "checkbox_list",
-      title: dictionary.checkboxList,
-      icon: TodoListIcon,
-      keywords: "checklist checkbox task",
-      shortcut: "^ ⇧ 7",
-    },
-    {
       name: "bullet_list",
       title: dictionary.bulletList,
       icon: BulletedListIcon,
-      shortcut: "^ ⇧ 8",
+      shortcut: "^ ⇧ 7",
     },
     {
       name: "ordered_list",
       title: dictionary.orderedList,
       icon: OrderedListIcon,
+      shortcut: "^ ⇧ 8",
+    },
+    {
+      name: "checkbox_list",
+      title: dictionary.checkboxList,
+      icon: TodoListIcon,
+      keywords: "checklist checkbox task",
       shortcut: "^ ⇧ 9",
     },
     {
@@ -121,6 +120,58 @@ export default function blockMenuItems(
       icon: LinkIcon,
       shortcut: `${mod} k`,
       keywords: "link url uri href",
+    },
+    {
+      name: "separator",
+    },
+    {
+      name: "article_link",
+      title: dictionary.article,
+      icon: LinkIcon,
+      shortcut: "alt shift 1",
+      keywords: "a article",
+    },
+    {
+      name: "exercise_link",
+      title: dictionary.exercise,
+      icon: LinkIcon,
+      shortcut: "alt shift 2",
+      keywords: "e exercise",
+    },
+    {
+      name: "method_link",
+      title: dictionary.method,
+      icon: LinkIcon,
+      shortcut: "alt shift 3",
+      keywords: "m method",
+    },
+    {
+      name: "exercise_set_link",
+      title: dictionary.exerciseSet,
+      icon: LinkIcon,
+      shortcut: "alt shift 4",
+      keywords: "es exercise set",
+    },
+    {
+      name: "method_set_link",
+      title: dictionary.methodSet,
+      icon: LinkIcon,
+      shortcut: "alt shift 5",
+      keywords: "ms method set",
+    },
+    {
+      name: "exercise_progression_link",
+      title: dictionary.exerciseProgression,
+      icon: LinkIcon,
+      shortcut: "alt shift 6",
+      keywords: "ep exercise progression",
+    },
+    {
+      name: "method_progression_link",
+      title: dictionary.methodProgression,
+      icon: LinkIcon,
+      shortcut: "alt shift 7",
+      keywords: "mp method progression",
     },
     {
       name: "separator",

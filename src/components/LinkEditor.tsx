@@ -17,6 +17,7 @@ import Input from "./Input";
 import ToolbarButton from "./ToolbarButton";
 import LinkSearchResult from "./LinkSearchResult";
 import baseDictionary from "../dictionary";
+import { ContentType } from "../types/content";
 
 export type SearchResult = {
   title: string;
@@ -30,6 +31,7 @@ type Props = {
   to: number;
   tooltip: typeof React.Component | React.FC<any>;
   dictionary: typeof baseDictionary;
+  contentType?: ContentType;
   onRemoveLink?: () => void;
   onCreateLink?: (title: string) => Promise<void>;
   onSearchLink?: (term: string) => Promise<SearchResult[]>;
@@ -208,7 +210,7 @@ class LinkEditor extends React.Component<Props, State> {
     if (trimmedValue && this.props.onSearchLink) {
       try {
         const results = await this.props.onSearchLink(trimmedValue);
-        this.setState(state => ({
+        this.setState((state) => ({
           results: {
             ...state.results,
             [trimmedValue]: results,
@@ -257,7 +259,7 @@ class LinkEditor extends React.Component<Props, State> {
     view.focus();
   };
 
-  handleSelectLink = (url: string, title: string) => event => {
+  handleSelectLink = (url: string, title: string) => (event) => {
     event.preventDefault();
     this.save(url, title);
 
@@ -274,7 +276,7 @@ class LinkEditor extends React.Component<Props, State> {
   };
 
   render() {
-    const { dictionary, theme } = this.props;
+    const { dictionary, theme, contentType } = this.props;
     const { value, selectedIndex } = this.state;
     const results =
       this.state.results[value.trim()] ||
@@ -301,8 +303,8 @@ class LinkEditor extends React.Component<Props, State> {
           value={value}
           placeholder={
             showCreateLink
-              ? dictionary.findOrCreateDoc
-              : dictionary.searchOrPasteLink
+              ? dictionary[`findOrCreate${contentType ? contentType : "Doc"}`]
+              : dictionary[`searchOrPaste${contentType ? contentType : ""}Link`]
           }
           onKeyDown={this.handleKeyDown}
           onPaste={this.handlePaste}
@@ -331,7 +333,9 @@ class LinkEditor extends React.Component<Props, State> {
               <LinkSearchResult
                 key={result.url}
                 title={result.title}
-                subtitle={result.subtitle}
+                subtitle={
+                  dictionary[`createNew${contentType ? contentType : "Doc"}`]
+                }
                 icon={<DocumentIcon color={theme.toolbarItem} />}
                 onMouseOver={() => this.handleFocusLink(index)}
                 onClick={this.handleSelectLink(result.url, result.title)}
@@ -371,7 +375,7 @@ const Wrapper = styled(Flex)`
 `;
 
 const SearchResults = styled.ol`
-  background: ${props => props.theme.toolbarBackground};
+  background: ${(props) => props.theme.toolbarBackground};
   position: absolute;
   top: 100%;
   width: 100%;

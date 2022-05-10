@@ -64,6 +64,13 @@ import Link from "./marks/Link";
 import Strikethrough from "./marks/Strikethrough";
 import TemplatePlaceholder from "./marks/Placeholder";
 import Underline from "./marks/Underline";
+import ArticleLink from "./marks/ArticleLink";
+import ExerciseLink from "./marks/ExerciseLink";
+import ExerciseSetLink from "./marks/ExerciseSetLink";
+import ExerciseProgressionLink from "./marks/ExerciseProgressionLink";
+import MethodLink from "./marks/MethodLink";
+import MethodSetLink from "./marks/MethodSetLink";
+import MethodProgressionLink from "./marks/MethodProgressionLink";
 
 // plugins
 import BlockMenuTrigger from "./plugins/BlockMenuTrigger";
@@ -96,6 +103,13 @@ export type Props = {
     | "highlight"
     | "em"
     | "link"
+    | "article_link"
+    | "exercise_link"
+    | "exercise_set_link"
+    | "exercise_progression_link"
+    | "method_link"
+    | "method_set_link"
+    | "method_progression_link"
     | "placeholder"
     | "strikethrough"
     | "underline"
@@ -144,6 +158,20 @@ export type Props = {
   onImageUploadStop?: () => void;
   onCreateLink?: (title: string) => Promise<string>;
   onSearchLink?: (term: string) => Promise<SearchResult[]>;
+  onCreateArticleLink?: (title: string) => Promise<string>;
+  onSearchArticleLink?: (term: string) => Promise<SearchResult[]>;
+  onCreateExerciseLink?: (title: string) => Promise<string>;
+  onSearchExerciseLink?: (term: string) => Promise<SearchResult[]>;
+  onCreateExerciseSetLink?: (title: string) => Promise<string>;
+  onSearchExerciseSetLink?: (term: string) => Promise<SearchResult[]>;
+  onCreateExerciseProgressionLink?: (title: string) => Promise<string>;
+  onSearchExerciseProgressionLink?: (term: string) => Promise<SearchResult[]>;
+  onCreateMethodLink?: (title: string) => Promise<string>;
+  onSearchMethodLink?: (term: string) => Promise<SearchResult[]>;
+  onCreateMethodSetLink?: (title: string) => Promise<string>;
+  onSearchMethodSetLink?: (term: string) => Promise<SearchResult[]>;
+  onCreateMethodProgressionLink?: (title: string) => Promise<string>;
+  onSearchMethodProgressionLink?: (term: string) => Promise<SearchResult[]>;
   onClickLink: (href: string, event: MouseEvent) => void;
   onHoverLink?: (event: MouseEvent) => boolean;
   onClickHashtag?: (tag: string, event: MouseEvent) => void;
@@ -161,6 +189,13 @@ type State = {
   selectionMenuOpen: boolean;
   blockMenuOpen: boolean;
   linkMenuOpen: boolean;
+  articleLinkMenuOpen: boolean;
+  exerciseLinkMenuOpen: boolean;
+  exerciseSetLinkMenuOpen: boolean;
+  exerciseProgressionLinkMenuOpen: boolean;
+  methodLinkMenuOpen: boolean;
+  methodSetLinkMenuOpen: boolean;
+  methodProgressionLinkMenuOpen: boolean;
   blockMenuSearch: string;
   emojiMenuOpen: boolean;
 };
@@ -180,7 +215,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     onImageUploadStop: () => {
       // no default behavior
     },
-    onClickLink: href => {
+    onClickLink: (href) => {
       window.open(href, "_blank");
     },
     embeds: [],
@@ -194,6 +229,13 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     selectionMenuOpen: false,
     blockMenuOpen: false,
     linkMenuOpen: false,
+    articleLinkMenuOpen: false,
+    exerciseLinkMenuOpen: false,
+    exerciseSetLinkMenuOpen: false,
+    exerciseProgressionLinkMenuOpen: false,
+    methodLinkMenuOpen: false,
+    methodSetLinkMenuOpen: false,
+    methodProgressionLinkMenuOpen: false,
     blockMenuSearch: "",
     emojiMenuOpen: false,
   };
@@ -267,6 +309,13 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
       !this.state.isEditorFocused &&
       !this.state.blockMenuOpen &&
       !this.state.linkMenuOpen &&
+      !this.state.articleLinkMenuOpen &&
+      !this.state.exerciseLinkMenuOpen &&
+      !this.state.exerciseSetLinkMenuOpen &&
+      !this.state.exerciseProgressionLinkMenuOpen &&
+      !this.state.methodLinkMenuOpen &&
+      !this.state.methodSetLinkMenuOpen &&
+      !this.state.methodProgressionLinkMenuOpen &&
       !this.state.selectionMenuOpen
     ) {
       this.isBlurred = true;
@@ -280,6 +329,13 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
       (this.state.isEditorFocused ||
         this.state.blockMenuOpen ||
         this.state.linkMenuOpen ||
+        this.state.articleLinkMenuOpen ||
+        this.state.exerciseLinkMenuOpen ||
+        this.state.exerciseSetLinkMenuOpen ||
+        this.state.exerciseProgressionLinkMenuOpen ||
+        this.state.methodLinkMenuOpen ||
+        this.state.methodSetLinkMenuOpen ||
+        this.state.methodProgressionLinkMenuOpen ||
         this.state.selectionMenuOpen)
     ) {
       this.isBlurred = false;
@@ -369,6 +425,48 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
             onClickHashtag: this.props.onClickHashtag,
             onHoverLink: this.props.onHoverLink,
           }),
+          new ArticleLink({
+            onKeyboardShortcut: this.handleOpenArticleLinkMenu,
+            onClickLink: this.props.onClickLink,
+            onClickHashtag: this.props.onClickHashtag,
+            onHoverLink: this.props.onHoverLink,
+          }),
+          new ExerciseLink({
+            onKeyboardShortcut: this.handleOpenExerciseLinkMenu,
+            onClickLink: this.props.onClickLink,
+            onClickHashtag: this.props.onClickHashtag,
+            onHoverLink: this.props.onHoverLink,
+          }),
+          new ExerciseSetLink({
+            onKeyboardShortcut: this.handleOpenExerciseSetLinkMenu,
+            onClickLink: this.props.onClickLink,
+            onClickHashtag: this.props.onClickHashtag,
+            onHoverLink: this.props.onHoverLink,
+          }),
+          new ExerciseProgressionLink({
+            onKeyboardShortcut: this.handleOpenExerciseProgressionLinkMenu,
+            onClickLink: this.props.onClickLink,
+            onClickHashtag: this.props.onClickHashtag,
+            onHoverLink: this.props.onHoverLink,
+          }),
+          new MethodLink({
+            onKeyboardShortcut: this.handleOpenArticleLinkMenu,
+            onClickLink: this.props.onClickLink,
+            onClickHashtag: this.props.onClickHashtag,
+            onHoverLink: this.props.onHoverLink,
+          }),
+          new MethodSetLink({
+            onKeyboardShortcut: this.handleOpenMethodSetLinkMenu,
+            onClickLink: this.props.onClickLink,
+            onClickHashtag: this.props.onClickHashtag,
+            onHoverLink: this.props.onHoverLink,
+          }),
+          new MethodProgressionLink({
+            onKeyboardShortcut: this.handleOpenMethodProgressionLinkMenu,
+            onClickLink: this.props.onClickLink,
+            onClickHashtag: this.props.onClickHashtag,
+            onHoverLink: this.props.onHoverLink,
+          }),
           new Strikethrough(),
           new OrderedList(),
           new History(),
@@ -402,7 +500,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
           new MaxLength({
             maxLength: this.props.maxLength,
           }),
-        ].filter(extension => {
+        ].filter((extension) => {
           // Optionaly disable extensions
           if (this.props.disableExtensions) {
             return !(this.props.disableExtensions as string[]).includes(
@@ -528,7 +626,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
       throw new Error("createView called before ref available");
     }
 
-    const isEditingCheckbox = tr => {
+    const isEditingCheckbox = (tr) => {
       return tr.steps.some(
         (step: Step) =>
           step.slice?.content?.firstChild?.type.name ===
@@ -554,7 +652,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
         // changing then call our own change handler to let the outside world
         // know
         if (
-          transactions.some(tr => tr.docChanged) &&
+          transactions.some((tr) => tr.docChanged) &&
           (!self.props.readOnly ||
             (self.props.readOnlyWriteCheckboxes &&
               transactions.some(isEditingCheckbox)))
@@ -648,8 +746,74 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     this.setState({ blockMenuOpen: false, linkMenuOpen: true });
   };
 
+  handleOpenArticleLinkMenu = () => {
+    console.log("before", this.state);
+    this.setState({ blockMenuOpen: false, articleLinkMenuOpen: true });
+    console.log("after", this.state);
+
+    console.log(this.state);
+  };
+
+  handleOpenExerciseLinkMenu = () => {
+    this.setState({ blockMenuOpen: false, exerciseLinkMenuOpen: true });
+  };
+
+  handleOpenExerciseSetLinkMenu = () => {
+    this.setState({ blockMenuOpen: false, exerciseSetLinkMenuOpen: true });
+  };
+
+  handleOpenExerciseProgressionLinkMenu = () => {
+    this.setState({
+      blockMenuOpen: false,
+      exerciseProgressionLinkMenuOpen: true,
+    });
+  };
+
+  handleOpenMethodLinkMenu = () => {
+    this.setState({ blockMenuOpen: false, methodLinkMenuOpen: true });
+  };
+
+  handleOpenMethodSetLinkMenu = () => {
+    this.setState({ blockMenuOpen: false, methodSetLinkMenuOpen: true });
+  };
+
+  handleOpenMethodProgressionLinkMenu = () => {
+    this.setState({
+      blockMenuOpen: false,
+      methodProgressionLinkMenuOpen: true,
+    });
+  };
+
   handleCloseLinkMenu = () => {
     this.setState({ linkMenuOpen: false });
+  };
+
+  handleCloseArticleLinkMenu = () => {
+    this.setState({ articleLinkMenuOpen: false });
+  };
+
+  handleCloseExerciseLinkMenu = () => {
+    this.setState({ exerciseLinkMenuOpen: false });
+  };
+
+  handleCloseExerciseSetLinkMenu = () => {
+    this.setState({ exerciseSetLinkMenuOpen: false });
+  };
+
+  handleCloseExerciseProgressionLinkMenu = () => {
+    this.setState({ exerciseProgressionLinkMenuOpen: false });
+  };
+
+  handleCloseMethodLinkMenu = () => {
+    this.setState({ methodLinkMenuOpen: false });
+  };
+
+  handleCloseMethodSetLinkMenu = () => {
+    this.setState({ methodSetLinkMenuOpen: false });
+  };
+
+  handleCloseMethodProgressionLinkMenu = () => {
+    this.setState({ methodProgressionLinkMenuOpen: false });
   };
 
   handleOpenBlockMenu = (search: string) => {
@@ -692,7 +856,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     const headings: { title: string; level: number; id: string }[] = [];
     const previouslySeen = {};
 
-    this.view.state.doc.forEach(node => {
+    this.view.state.doc.forEach((node) => {
       if (node.type.name === "heading") {
         // calculate the optimal slug
         const slug = headingToSlug(node);
@@ -759,7 +923,7 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
               rtl={isRTL}
               readOnly={readOnly}
               readOnlyWriteCheckboxes={readOnlyWriteCheckboxes}
-              ref={ref => (this.element = ref)}
+              ref={(ref) => (this.element = ref)}
             />
             {!readOnly && this.view && (
               <React.Fragment>
@@ -787,6 +951,90 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
                   onClose={this.handleCloseLinkMenu}
                   tooltip={tooltip}
                 />
+                <LinkToolbar
+                  view={this.view}
+                  dictionary={dictionary}
+                  isActive={this.state.articleLinkMenuOpen}
+                  contentType="Article"
+                  onCreateLink={this.props.onCreateArticleLink}
+                  onSearchLink={this.props.onSearchArticleLink}
+                  onClickLink={this.props.onClickLink}
+                  onShowToast={this.props.onShowToast}
+                  onClose={this.handleCloseArticleLinkMenu}
+                  tooltip={tooltip}
+                />
+                <LinkToolbar
+                  view={this.view}
+                  dictionary={dictionary}
+                  isActive={this.state.exerciseLinkMenuOpen}
+                  contentType="Exercise"
+                  onCreateLink={this.props.onCreateExerciseLink}
+                  onSearchLink={this.props.onSearchExerciseLink}
+                  onClickLink={this.props.onClickLink}
+                  onShowToast={this.props.onShowToast}
+                  onClose={this.handleCloseExerciseLinkMenu}
+                  tooltip={tooltip}
+                />
+                <LinkToolbar
+                  view={this.view}
+                  dictionary={dictionary}
+                  isActive={this.state.exerciseSetLinkMenuOpen}
+                  contentType="ExerciseSet"
+                  onCreateLink={this.props.onCreateExerciseSetLink}
+                  onSearchLink={this.props.onSearchExerciseSetLink}
+                  onClickLink={this.props.onClickLink}
+                  onShowToast={this.props.onShowToast}
+                  onClose={this.handleCloseExerciseSetLinkMenu}
+                  tooltip={tooltip}
+                />
+                <LinkToolbar
+                  view={this.view}
+                  dictionary={dictionary}
+                  isActive={this.state.exerciseProgressionLinkMenuOpen}
+                  contentType="ExerciseProgression"
+                  onCreateLink={this.props.onCreateExerciseProgressionLink}
+                  onSearchLink={this.props.onSearchExerciseProgressionLink}
+                  onClickLink={this.props.onClickLink}
+                  onShowToast={this.props.onShowToast}
+                  onClose={this.handleCloseExerciseProgressionLinkMenu}
+                  tooltip={tooltip}
+                />
+                <LinkToolbar
+                  view={this.view}
+                  dictionary={dictionary}
+                  isActive={this.state.methodLinkMenuOpen}
+                  contentType="Method"
+                  onCreateLink={this.props.onCreateMethodLink}
+                  onSearchLink={this.props.onSearchMethodLink}
+                  onClickLink={this.props.onClickLink}
+                  onShowToast={this.props.onShowToast}
+                  onClose={this.handleCloseMethodLinkMenu}
+                  tooltip={tooltip}
+                />
+                <LinkToolbar
+                  view={this.view}
+                  dictionary={dictionary}
+                  isActive={this.state.methodSetLinkMenuOpen}
+                  contentType="MethodSet"
+                  onCreateLink={this.props.onCreateMethodSetLink}
+                  onSearchLink={this.props.onSearchMethodSetLink}
+                  onClickLink={this.props.onClickLink}
+                  onShowToast={this.props.onShowToast}
+                  onClose={this.handleCloseMethodSetLinkMenu}
+                  tooltip={tooltip}
+                />
+                <LinkToolbar
+                  view={this.view}
+                  dictionary={dictionary}
+                  isActive={this.state.methodProgressionLinkMenuOpen}
+                  contentType="MethodProgression"
+                  onCreateLink={this.props.onCreateMethodProgressionLink}
+                  onSearchLink={this.props.onSearchMethodProgressionLink}
+                  onClickLink={this.props.onClickLink}
+                  onShowToast={this.props.onShowToast}
+                  onClose={this.handleCloseMethodProgressionLinkMenu}
+                  tooltip={tooltip}
+                />
                 <EmojiMenu
                   view={this.view}
                   commands={this.commands}
@@ -806,6 +1054,19 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
                   onClose={this.handleCloseBlockMenu}
                   uploadImage={this.props.uploadImage}
                   onLinkToolbarOpen={this.handleOpenLinkMenu}
+                  onArticleLinkToolbarOpen={this.handleOpenArticleLinkMenu}
+                  onExerciseLinkToolbarOpen={this.handleOpenExerciseLinkMenu}
+                  onExerciseSetLinkToolbarOpen={
+                    this.handleOpenExerciseSetLinkMenu
+                  }
+                  onExerciseProgressionLinkToolbarOpen={
+                    this.handleOpenExerciseProgressionLinkMenu
+                  }
+                  onMethodLinkToolbarOpen={this.handleOpenMethodLinkMenu}
+                  onMethodSetLinkToolbarOpen={this.handleOpenMethodSetLinkMenu}
+                  onMethodProgressionLinkToolbarOpen={
+                    this.handleOpenMethodProgressionLinkMenu
+                  }
                   onImageUploadStart={this.props.onImageUploadStart}
                   onImageUploadStop={this.props.onImageUploadStop}
                   onShowToast={this.props.onShowToast}
