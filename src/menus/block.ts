@@ -87,13 +87,13 @@ export default function blockMenuItems(
       icon: BlockQuoteIcon,
       shortcut: `${mod} ]`,
     },
-    {
-      name: "code_block",
-      title: dictionary.codeBlock,
-      icon: CodeIcon,
-      shortcut: "^ ⇧ \\",
-      keywords: "script",
-    },
+    // {
+    //   name: "code_block",
+    //   title: dictionary.codeBlock,
+    //   icon: CodeIcon,
+    //   shortcut: "^ ⇧ \\",
+    //   keywords: "script",
+    // },
     {
       name: "hr",
       title: dictionary.hr,
@@ -101,13 +101,13 @@ export default function blockMenuItems(
       shortcut: `${mod} _`,
       keywords: "horizontal rule break line",
     },
-    {
-      name: "hr",
-      title: dictionary.pageBreak,
-      icon: PageBreakIcon,
-      keywords: "page print break line",
-      attrs: { markup: "***" },
-    },
+    // {
+    //   name: "hr",
+    //   title: dictionary.pageBreak,
+    //   icon: PageBreakIcon,
+    //   keywords: "page print break line",
+    //   attrs: { markup: "***" },
+    // },
     {
       name: "image",
       title: dictionary.image,

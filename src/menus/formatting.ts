@@ -1,11 +1,9 @@
 import {
   BoldIcon,
-  CodeIcon,
-  Heading1Icon,
+  Heading3Icon,
   Heading2Icon,
   BlockQuoteIcon,
   LinkIcon,
-  StrikethroughIcon,
   OrderedListIcon,
   BulletedListIcon,
   TodoListIcon,
@@ -19,6 +17,8 @@ import isMarkActive from "../queries/isMarkActive";
 import isNodeActive from "../queries/isNodeActive";
 import { MenuItem } from "../types";
 import baseDictionary from "../dictionary";
+import ItalicIcon from "../icons/ItalicIcon";
+import UnderlineIcon from "../icons/UnderlineIcon";
 
 export default function formattingMenuItems(
   state: EditorState,
@@ -49,34 +49,32 @@ export default function formattingMenuItems(
       active: isMarkActive(schema.marks.strong),
     },
     {
-      name: "strikethrough",
-      tooltip: dictionary.strikethrough,
-      icon: StrikethroughIcon,
-      active: isMarkActive(schema.marks.strikethrough),
+      name: "em",
+      tooltip: dictionary.italic,
+      icon: ItalicIcon,
+      active: isMarkActive(schema.marks.em),
     },
     {
-      name: "highlight",
-      tooltip: dictionary.mark,
-      icon: HighlightIcon,
-      active: isMarkActive(schema.marks.highlight),
-      visible: !isTemplate,
+      name: "underline",
+      tooltip: dictionary.underline,
+      icon: UnderlineIcon,
+      active: isMarkActive(schema.marks.underline),
     },
-    {
-      name: "code_inline",
-      tooltip: dictionary.codeInline,
-      icon: CodeIcon,
-      active: isMarkActive(schema.marks.code_inline),
-    },
+    // {
+    //   name: "highlight",
+    //   tooltip: dictionary.mark,
+    //   icon: HighlightIcon,
+    //   active: isMarkActive(schema.marks.highlight),
+    //   visible: !isTemplate,
+    // },
+    // {
+    //   name: "code_inline",
+    //   tooltip: dictionary.codeInline,
+    //   icon: CodeIcon,
+    //   active: isMarkActive(schema.marks.code_inline),
+    // },
     {
       name: "separator",
-      visible: allowBlocks,
-    },
-    {
-      name: "heading",
-      tooltip: dictionary.heading,
-      icon: Heading1Icon,
-      active: isNodeActive(schema.nodes.heading, { level: 1 }),
-      attrs: { level: 1 },
       visible: allowBlocks,
     },
     {
@@ -85,6 +83,14 @@ export default function formattingMenuItems(
       icon: Heading2Icon,
       active: isNodeActive(schema.nodes.heading, { level: 2 }),
       attrs: { level: 2 },
+      visible: allowBlocks,
+    },
+    {
+      name: "heading",
+      tooltip: dictionary.heading,
+      icon: Heading3Icon,
+      active: isNodeActive(schema.nodes.heading, { level: 3 }),
+      attrs: { level: 3 },
       visible: allowBlocks,
     },
     {
