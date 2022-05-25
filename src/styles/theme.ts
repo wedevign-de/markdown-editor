@@ -77,8 +77,7 @@ export const light = {
   toolbarInput: colors.white10,
   toolbarItem: colors.white,
 
-  tableDivider: "transparent",
-  tableGrip: colors.greyMid,
+  tableDivider: colors.greyMid,
   tableSelected: colors.primary,
   tableSelectedBackground: "#E5F7FF",
 
@@ -106,8 +105,7 @@ export const dark = {
   toolbarInput: colors.black10,
   toolbarItem: colors.lightBlack,
 
-  tableDivider: "transparent",
-  tableGrip: colors.lightBlack,
+  tableDivider: colors.lightBlack,
   tableSelected: colors.primary,
   tableSelectedBackground: "#002333",
 
