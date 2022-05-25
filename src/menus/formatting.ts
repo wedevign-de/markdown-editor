@@ -60,13 +60,13 @@ export default function formattingMenuItems(
       icon: UnderlineIcon,
       active: isMarkActive(schema.marks.underline),
     },
-    // {
-    //   name: "highlight",
-    //   tooltip: dictionary.mark,
-    //   icon: HighlightIcon,
-    //   active: isMarkActive(schema.marks.highlight),
-    //   visible: !isTemplate,
-    // },
+    {
+      name: "highlight",
+      tooltip: dictionary.mark,
+      icon: HighlightIcon,
+      active: isMarkActive(schema.marks.highlight),
+      visible: !isTemplate,
+    },
     // {
     //   name: "code_inline",
     //   tooltip: dictionary.codeInline,
