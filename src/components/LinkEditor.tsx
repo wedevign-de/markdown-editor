@@ -333,9 +333,7 @@ class LinkEditor extends React.Component<Props, State> {
               <LinkSearchResult
                 key={result.url}
                 title={result.title}
-                subtitle={
-                  dictionary[`createNew${contentType ? contentType : "Doc"}`]
-                }
+                subtitle={result.subtitle}
                 icon={<DocumentIcon color={theme.toolbarItem} />}
                 onMouseOver={() => this.handleFocusLink(index)}
                 onClick={this.handleSelectLink(result.url, result.title)}
@@ -347,7 +345,9 @@ class LinkEditor extends React.Component<Props, State> {
               <LinkSearchResult
                 key="create"
                 title={suggestedLinkTitle}
-                subtitle={dictionary.createNewDoc}
+                subtitle={
+                  dictionary[`createNew${contentType ? contentType : "Doc"}`]
+                }
                 icon={<PlusIcon color={theme.toolbarItem} />}
                 onMouseOver={() => this.handleFocusLink(results.length)}
                 onClick={() => {
