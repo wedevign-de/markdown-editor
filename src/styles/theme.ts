@@ -72,10 +72,16 @@ export const light = {
   cursor: colors.black,
   divider: colors.greyMid,
 
-  toolbarBackground: colors.lightBlack,
-  toolbarHoverBackground: colors.black,
-  toolbarInput: colors.white10,
-  toolbarItem: colors.white,
+  toolbarBackground: colors.white,
+  toolbarHoverBackground: colors.greyMid,
+  toolbarInput: colors.black10,
+  toolbarItem: colors.lightBlack,
+  toolbarBorder: colors.black10,
+
+  // toolbarBackground: colors.lightBlack,
+  // toolbarHoverBackground: colors.black,
+  // toolbarInput: colors.white10,
+  // toolbarItem: colors.white,
 
   tableDivider: colors.greyMid,
   tableSelected: colors.primary,
@@ -100,10 +106,16 @@ export const dark = {
   divider: "#4E5C6E",
   placeholder: "#52657A",
 
-  toolbarBackground: colors.white,
-  toolbarHoverBackground: colors.greyMid,
-  toolbarInput: colors.black10,
-  toolbarItem: colors.lightBlack,
+  // toolbarBackground: colors.white,
+  // toolbarHoverBackground: colors.greyMid,
+  // toolbarInput: colors.black10,
+  // toolbarItem: colors.lightBlack,
+
+  toolbarBackground: colors.lightBlack,
+  toolbarHoverBackground: colors.black,
+  toolbarInput: colors.white10,
+  toolbarItem: colors.white,
+  toolbarBorder: colors.white10,
 
   tableDivider: colors.lightBlack,
   tableSelected: colors.primary,

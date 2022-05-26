@@ -185,9 +185,9 @@ const Wrapper = styled.div<{
   will-change: opacity, transform;
   padding: 8px 16px;
   position: absolute;
-  z-index: ${props => props.theme.zIndex + 100};
+  z-index: ${(props) => props.theme.zIndex + 100};
   opacity: 0;
-  background-color: ${props => props.theme.toolbarBackground};
+  background-color: ${(props) => props.theme.toolbarBackground};
   border-radius: 4px;
   transform: scale(0.95);
   transition: opacity 150ms cubic-bezier(0.175, 0.885, 0.32, 1.275),
@@ -198,6 +198,8 @@ const Wrapper = styled.div<{
   box-sizing: border-box;
   pointer-events: none;
   white-space: nowrap;
+  box-shadow: 0px 10px 40px rgba(16, 29, 64, 0.06);
+  border: 1px solid ${(props) => props.theme.toolbarBorder};
 
   &::before {
     content: "";
@@ -205,12 +207,12 @@ const Wrapper = styled.div<{
     width: 24px;
     height: 24px;
     transform: translateX(-50%) rotate(45deg);
-    background: ${props => props.theme.toolbarBackground};
+    background: ${(props) => props.theme.toolbarBackground};
     border-radius: 3px;
     z-index: -1;
     position: absolute;
     bottom: -2px;
-    left: calc(50% - ${props => props.offset || 0}px);
+    left: calc(50% - ${(props) => props.offset || 0}px);
     pointer-events: none;
   }
 

@@ -6,25 +6,24 @@ export default function ItalicIcon(
   props: Props
 ): React.ReactElement<React.ComponentProps<any>, any> {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 10.7 16"
-      height={24}
-      width={24}
-      style={{ paddingTop: "4px", paddingBottom: "4px" }}
-    >
-      <path
-        fill={props.color ? props.color : "white"}
-        d="M5.6,1.19h2.34l-2.61,13.07H2.99L5.6,1.19Z"
-      />
-      <path
-        fill={props.color ? props.color : "white"}
-        d="M7,16H1c-.55,0-1-.45-1-1s.45-1,1-1H7c.55,0,1,.45,1,1s-.45,1-1,1Z"
-      />
-      <path
-        fill={props.color ? props.color : "white"}
-        d="M9.7,2H3.7c-.55,0-1-.45-1-1s.45-1,1-1h6c.55,0,1,.45,1,1s-.45,1-1,1Z"
-      />
-    </svg>
+    <>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 4.93 14.16"
+        height={24}
+        width={24}
+        style={{
+          paddingTop: "4px",
+          paddingBottom: "4px",
+          marginLeft: "-4px",
+          marginRight: "-4px",
+        }}
+      >
+        <path
+          d="M2.66,4.31h0c.72,0,1.26,.66,1.12,1.36l-1.52,7.58c-.11,.53-.57,.91-1.12,.91h0C.42,14.16-.12,13.51,.02,12.8L1.54,5.22c.11-.53,.57-.91,1.12-.91Zm-.56-2.84c0-.8,.68-1.47,1.52-1.47,.67,0,1.31,.43,1.31,1.19,0,.84-.68,1.45-1.52,1.45-.67,0-1.31-.4-1.31-1.17Z"
+          fill={props.color ? props.color : "white"}
+        />
+      </svg>
+    </>
   );
 }
