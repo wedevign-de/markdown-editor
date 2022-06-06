@@ -1,12 +1,11 @@
 import {
   BlockQuoteIcon,
   BulletedListIcon,
-  CodeIcon,
+  Heading1Icon,
   Heading2Icon,
   Heading3Icon,
   HorizontalRuleIcon,
   OrderedListIcon,
-  PageBreakIcon,
   TableIcon,
   TodoListIcon,
   ImageIcon,
@@ -26,14 +25,14 @@ export default function blockMenuItems(
   dictionary: typeof baseDictionary
 ): MenuItem[] {
   return [
-    // {
-    //   name: "heading",
-    //   title: dictionary.h1,
-    //   keywords: "h1 heading1 title",
-    //   icon: Heading1Icon,
-    //   shortcut: "^ ⇧ 1",
-    //   attrs: { level: 1 },
-    // },
+    {
+      name: "heading",
+      title: dictionary.h1,
+      keywords: "h1 heading1 title",
+      icon: Heading1Icon,
+      shortcut: "^ ⇧ 1",
+      attrs: { level: 1 },
+    },
     {
       name: "heading",
       title: dictionary.h2,

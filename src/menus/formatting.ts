@@ -2,6 +2,7 @@ import {
   BoldIcon,
   Heading3Icon,
   Heading2Icon,
+  Heading1Icon,
   BlockQuoteIcon,
   LinkIcon,
   OrderedListIcon,
@@ -79,7 +80,15 @@ export default function formattingMenuItems(
     },
     {
       name: "heading",
-      tooltip: dictionary.subheading,
+      tooltip: dictionary.h1,
+      icon: Heading1Icon,
+      active: isNodeActive(schema.nodes.heading, { level: 1 }),
+      attrs: { level: 1 },
+      visible: allowBlocks,
+    },
+    {
+      name: "heading",
+      tooltip: dictionary.h2,
       icon: Heading2Icon,
       active: isNodeActive(schema.nodes.heading, { level: 2 }),
       attrs: { level: 2 },
@@ -87,7 +96,7 @@ export default function formattingMenuItems(
     },
     {
       name: "heading",
-      tooltip: dictionary.heading,
+      tooltip: dictionary.h3,
       icon: Heading3Icon,
       active: isNodeActive(schema.nodes.heading, { level: 3 }),
       attrs: { level: 3 },
