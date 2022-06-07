@@ -28,12 +28,13 @@ class BlockMenu extends React.Component<BlockMenuProps> {
     return getMenuItems(this.props.dictionary);
   }
 
-  clearSearch = () => {
+  clearSearch = (clearLength = 0): void => {
     const { state, dispatch } = this.props.view;
     const parent = findParentNode((node) => !!node)(state.selection);
 
     if (parent) {
-      dispatch(state.tr.insertText("", parent.pos, state.selection.to));
+      const deleteFrom = Math.max(parent.pos, state.selection.to - clearLength);
+      dispatch(state.tr.insertText("", deleteFrom, state.selection.to));
     }
   };
 

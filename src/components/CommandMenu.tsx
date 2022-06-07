@@ -41,7 +41,7 @@ export type Props<T extends MenuItem = MenuItem> = {
   onMethodSetLinkToolbarOpen?: () => void;
   onMethodProgressionLinkToolbarOpen?: () => void;
   onClose: () => void;
-  onClearSearch: () => void;
+  onClearSearch: (clearLength: number) => void;
   embeds?: EmbedDescriptor[];
   renderMenuItem: (
     item: T,
@@ -343,8 +343,13 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
     this.props.onClose();
   };
 
-  clearSearch = () => {
-    this.props.onClearSearch();
+  clearSearch = (): void => {
+    if (this.props.search === undefined) {
+      // search text is not defined (opened through right click for instance)
+      return this.props.onClearSearch(1);
+    }
+    // search text is there if opened through the `/` trigger. Defaulted to `""`
+    this.props.onClearSearch(this.props.search.length + 1);
   };
 
   insertBlock(item) {

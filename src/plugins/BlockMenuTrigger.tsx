@@ -9,8 +9,8 @@ import { Decoration, DecorationSet } from "prosemirror-view";
 import Extension from "../lib/Extension";
 
 const MAX_MATCH = 500;
-const OPEN_REGEX = /^\/(\w+)?$/;
-const CLOSE_REGEX = /(^(?!\/(\w+)?)(.*)$|^\/(([\w\W]+)\s.*|\s)$|^\/((\W)+)$)/;
+const OPEN_REGEX = /^\/(\w+)?$|.*\s\/(\w+)?$/;
+const CLOSE_REGEX = /\/(.*\s)$/;
 
 // based on the input rules code in Prosemirror, here:
 // https://github.com/ProseMirror/prosemirror-inputrules/blob/master/src/inputrules.js
@@ -93,9 +93,9 @@ export default class BlockMenuTrigger extends Extension {
 
             return false;
           },
-          decorations: state => {
+          decorations: (state) => {
             const parent = findParentNode(
-              node => node.type.name === "paragraph"
+              (node) => node.type.name === "paragraph"
             )(state.selection);
 
             if (!parent) {
@@ -163,7 +163,7 @@ export default class BlockMenuTrigger extends Extension {
           state.selection.$from.parent.type.name === "paragraph" &&
           !isInTable(state)
         ) {
-          this.options.onOpen(match[1]);
+          this.options.onOpen(match[2] ? match[2] : match[1]);
         }
         return null;
       }),
