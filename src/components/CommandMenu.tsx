@@ -34,6 +34,8 @@ export type Props<T extends MenuItem = MenuItem> = {
   onShowToast?: (message: string, id: string) => void;
   onLinkToolbarOpen?: () => void;
   onArticleLinkToolbarOpen?: () => void;
+  onArticleSetLinkToolbarOpen?: () => void;
+  onArticleProgressionLinkToolbarOpen?: () => void;
   onExerciseLinkToolbarOpen?: () => void;
   onExerciseSetLinkToolbarOpen?: () => void;
   onExerciseProgressionLinkToolbarOpen?: () => void;
@@ -196,6 +198,18 @@ class CommandMenu<T = MenuItem> extends React.Component<Props<T>, State> {
         this.clearSearch();
         this.props.onClose();
         this.props.onArticleLinkToolbarOpen?.();
+        return;
+      }
+      case "article_set_link": {
+        this.clearSearch();
+        this.props.onClose();
+        this.props.onArticleSetLinkToolbarOpen?.();
+        return;
+      }
+      case "article_progression_link": {
+        this.clearSearch();
+        this.props.onClose();
+        this.props.onArticleProgressionLinkToolbarOpen?.();
         return;
       }
       case "exercise_link": {

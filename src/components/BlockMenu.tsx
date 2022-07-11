@@ -13,6 +13,8 @@ type BlockMenuProps = Omit<
       Props,
       | "onLinkToolbarOpen"
       | "onArticleLinkToolbarOpen"
+      | "onArticleSetLinkToolbarOpen"
+      | "onArticleProgressionLinkToolbarOpen"
       | "onExerciseLinkToolbarOpen"
       | "onExerciseSetLinkToolbarOpen"
       | "onExerciseProgressionLinkToolbarOpen"

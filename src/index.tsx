@@ -65,6 +65,8 @@ import Strikethrough from "./marks/Strikethrough";
 import TemplatePlaceholder from "./marks/Placeholder";
 import Underline from "./marks/Underline";
 import ArticleLink from "./marks/ArticleLink";
+import ArticleSetLink from "./marks/ArticleSetLink";
+import ArticleProgressionLink from "./marks/ArticleProgressionLink";
 import ExerciseLink from "./marks/ExerciseLink";
 import ExerciseSetLink from "./marks/ExerciseSetLink";
 import ExerciseProgressionLink from "./marks/ExerciseProgressionLink";
@@ -104,6 +106,8 @@ export type Props = {
     | "em"
     | "link"
     | "article_link"
+    | "article_set_link"
+    | "article_progression_link"
     | "exercise_link"
     | "exercise_set_link"
     | "exercise_progression_link"
@@ -160,6 +164,10 @@ export type Props = {
   onSearchLink?: (term: string) => Promise<SearchResult[]>;
   onCreateArticleLink?: (title: string) => Promise<string>;
   onSearchArticleLink?: (term: string) => Promise<SearchResult[]>;
+  onCreateArticleSetLink?: (title: string) => Promise<string>;
+  onSearchArticleSetLink?: (term: string) => Promise<SearchResult[]>;
+  onCreateArticleProgressionLink?: (title: string) => Promise<string>;
+  onSearchArticleProgressionLink?: (term: string) => Promise<SearchResult[]>;
   onCreateExerciseLink?: (title: string) => Promise<string>;
   onSearchExerciseLink?: (term: string) => Promise<SearchResult[]>;
   onCreateExerciseSetLink?: (title: string) => Promise<string>;
@@ -190,6 +198,8 @@ type State = {
   blockMenuOpen: boolean;
   linkMenuOpen: boolean;
   articleLinkMenuOpen: boolean;
+  articleSetLinkMenuOpen: boolean;
+  articleProgressionLinkMenuOpen: boolean;
   exerciseLinkMenuOpen: boolean;
   exerciseSetLinkMenuOpen: boolean;
   exerciseProgressionLinkMenuOpen: boolean;
@@ -230,6 +240,8 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
     blockMenuOpen: false,
     linkMenuOpen: false,
     articleLinkMenuOpen: false,
+    articleSetLinkMenuOpen: false,
+    articleProgressionLinkMenuOpen: false,
     exerciseLinkMenuOpen: false,
     exerciseSetLinkMenuOpen: false,
     exerciseProgressionLinkMenuOpen: false,
@@ -310,6 +322,8 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
       !this.state.blockMenuOpen &&
       !this.state.linkMenuOpen &&
       !this.state.articleLinkMenuOpen &&
+      !this.state.articleSetLinkMenuOpen &&
+      !this.state.articleProgressionLinkMenuOpen &&
       !this.state.exerciseLinkMenuOpen &&
       !this.state.exerciseSetLinkMenuOpen &&
       !this.state.exerciseProgressionLinkMenuOpen &&
@@ -330,6 +344,8 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
         this.state.blockMenuOpen ||
         this.state.linkMenuOpen ||
         this.state.articleLinkMenuOpen ||
+        this.state.articleSetLinkMenuOpen ||
+        this.state.articleProgressionLinkMenuOpen ||
         this.state.exerciseLinkMenuOpen ||
         this.state.exerciseSetLinkMenuOpen ||
         this.state.exerciseProgressionLinkMenuOpen ||
@@ -427,6 +443,18 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
           }),
           new ArticleLink({
             onKeyboardShortcut: this.handleOpenArticleLinkMenu,
+            onClickLink: this.props.onClickLink,
+            onClickHashtag: this.props.onClickHashtag,
+            onHoverLink: this.props.onHoverLink,
+          }),
+          new ArticleSetLink({
+            onKeyboardShortcut: this.handleOpenArticleSetLinkMenu,
+            onClickLink: this.props.onClickLink,
+            onClickHashtag: this.props.onClickHashtag,
+            onHoverLink: this.props.onHoverLink,
+          }),
+          new ArticleProgressionLink({
+            onKeyboardShortcut: this.handleOpenArticleProgressionLinkMenu,
             onClickLink: this.props.onClickLink,
             onClickHashtag: this.props.onClickHashtag,
             onHoverLink: this.props.onHoverLink,
@@ -747,11 +775,18 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
   };
 
   handleOpenArticleLinkMenu = () => {
-    console.log("before", this.state);
     this.setState({ blockMenuOpen: false, articleLinkMenuOpen: true });
-    console.log("after", this.state);
+  };
 
-    console.log(this.state);
+  handleOpenArticleSetLinkMenu = () => {
+    this.setState({ blockMenuOpen: false, articleSetLinkMenuOpen: true });
+  };
+
+  handleOpenArticleProgressionLinkMenu = () => {
+    this.setState({
+      blockMenuOpen: false,
+      articleProgressionLinkMenuOpen: true,
+    });
   };
 
   handleOpenExerciseLinkMenu = () => {
@@ -790,6 +825,14 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
 
   handleCloseArticleLinkMenu = () => {
     this.setState({ articleLinkMenuOpen: false });
+  };
+
+  handleCloseArticleSetLinkMenu = () => {
+    this.setState({ articleSetLinkMenuOpen: false });
+  };
+
+  handleCloseArticleProgressionLinkMenu = () => {
+    this.setState({ articleProgressionLinkMenuOpen: false });
   };
 
   handleCloseExerciseLinkMenu = () => {
@@ -966,6 +1009,30 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
                 <LinkToolbar
                   view={this.view}
                   dictionary={dictionary}
+                  isActive={this.state.articleSetLinkMenuOpen}
+                  contentType="ArticleSet"
+                  onCreateLink={this.props.onCreateArticleSetLink}
+                  onSearchLink={this.props.onSearchArticleSetLink}
+                  onClickLink={this.props.onClickLink}
+                  onShowToast={this.props.onShowToast}
+                  onClose={this.handleCloseArticleSetLinkMenu}
+                  tooltip={tooltip}
+                />
+                <LinkToolbar
+                  view={this.view}
+                  dictionary={dictionary}
+                  isActive={this.state.articleProgressionLinkMenuOpen}
+                  contentType="ArticleProgression"
+                  onCreateLink={this.props.onCreateArticleProgressionLink}
+                  onSearchLink={this.props.onSearchArticleProgressionLink}
+                  onClickLink={this.props.onClickLink}
+                  onShowToast={this.props.onShowToast}
+                  onClose={this.handleCloseArticleProgressionLinkMenu}
+                  tooltip={tooltip}
+                />
+                <LinkToolbar
+                  view={this.view}
+                  dictionary={dictionary}
                   isActive={this.state.exerciseLinkMenuOpen}
                   contentType="Exercise"
                   onCreateLink={this.props.onCreateExerciseLink}
@@ -1055,6 +1122,12 @@ class RichMarkdownEditor extends React.PureComponent<Props, State> {
                   uploadImage={this.props.uploadImage}
                   onLinkToolbarOpen={this.handleOpenLinkMenu}
                   onArticleLinkToolbarOpen={this.handleOpenArticleLinkMenu}
+                  onArticleSetLinkToolbarOpen={
+                    this.handleOpenArticleSetLinkMenu
+                  }
+                  onArticleProgressionLinkToolbarOpen={
+                    this.handleOpenArticleProgressionLinkMenu
+                  }
                   onExerciseLinkToolbarOpen={this.handleOpenExerciseLinkMenu}
                   onExerciseSetLinkToolbarOpen={
                     this.handleOpenExerciseSetLinkMenu

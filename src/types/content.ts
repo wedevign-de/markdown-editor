@@ -1,5 +1,7 @@
 const EContentType = {
   Article: "Article",
+  ArticleSet: "ArticleSet",
+  ArticleProgression: "ArticleProgression",
   Exercise: "Exercise",
   ExerciseSet: "ExerciseSet",
   ExerciseProgression: "ExerciseProgression",
